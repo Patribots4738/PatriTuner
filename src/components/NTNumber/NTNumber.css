@@ -17,4 +17,10 @@
     border-radius: 10px;
     font-size: 25px;
     background-color: #505050;
+    color: white;
+}
+
+.container p {
+    width: 200px;
+    overflow-x: scroll;
 }

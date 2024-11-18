@@ -1,17 +1,17 @@
 import { NetworkTablesTypeInfos } from "ntcore-ts-client";
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import useNTState from "../../lib/ntcore-react/useNTState.ts";
 import "./NTNumber.css";
 
-const id = uuidv4();
 
 interface NTNumberProps {
     NTKey: string;
+    id: string,
+    readOnly: boolean
 }
 
 const NTNumber = (props: NTNumberProps) => {
-    const { NTKey } = props;
+    const { NTKey, id, readOnly } = props;
 
     const [NTValue, setNTValue] = useNTState<number>(
         NTKey,
@@ -41,7 +41,7 @@ const NTNumber = (props: NTNumberProps) => {
     return (
         <div className="container">
             <p>{NTKey}</p>
-            <input type="text" value={textValue} onChange={handleChange} className="display" id={id}/>
+            <input type="text" disabled={readOnly} value={textValue} onChange={handleChange} className="display" id={id}/>
         </div>
     );
 };
