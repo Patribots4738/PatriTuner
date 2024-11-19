@@ -1,4 +1,4 @@
-.container {
+.number-container {
     background-color: #404040;
     border-radius: 10px;
     width: 250px;
@@ -9,7 +9,7 @@
     align-items: center;
 }
 
-.display {
+.number-display {
     text-align: center;
     height: 50px;
     width: 200px;
@@ -20,7 +20,7 @@
     color: white;
 }
 
-.container p {
+.number-container p {
     width: 200px;
     overflow-x: scroll;
 }

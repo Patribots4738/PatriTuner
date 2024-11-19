@@ -1,12 +1,12 @@
 import NTProvider from "./lib/ntcore-react/NTProvider.tsx";
 import NTNumber from "./components/NTNumber/NTNumber.tsx";
+import Settings from "./components/Settings/Settings.tsx";
 import { v4 as uuidv4 } from 'uuid';
 import "./App.css";
 
 function App() {
-    const NTKey = "/Calibration/Climb/0-P"; // NTKey prop for all elements
 
-    return (
+    return (    
         <NTProvider uri={"localhost"}>
             <div className="grid-container">
                 <div className="grid-item">
@@ -28,6 +28,7 @@ function App() {
                     <NTNumber NTKey={"/Calibration/Climb/4-IZone"} id={uuidv4()} readOnly={false}/>
                 </div>
             </div>
+            <Settings/>
         </NTProvider>
     );
 }

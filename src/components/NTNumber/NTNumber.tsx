@@ -39,9 +39,9 @@ const NTNumber = (props: NTNumberProps) => {
     };
 
     return (
-        <div className="container">
+        <div className="number-container">
             <p>{NTKey}</p>
-            <input type="text" disabled={readOnly} value={textValue} onChange={handleChange} className="display" id={id}/>
+            <input type="text" disabled={readOnly} value={!textValue.includes('e') ? textValue.substring(0, 7) : '0'} onChange={handleChange} className="number-display" id={id}/>
         </div>
     );
 };

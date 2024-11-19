@@ -31,9 +31,8 @@ const useNTState = <T extends NTTopicTypes>(
                 setValue(value ?? defaultValue);
             };
             const clientTopic = client.createTopic(key, ntType, defaultValue);
-            setTopic(clientTopic);
             const subscriptionUID = clientTopic.subscribe(listener);
-            clientTopic.publish();
+            setTopic(clientTopic);
 
             return () => {
                 if (subscriptionUID && clientTopic) {
