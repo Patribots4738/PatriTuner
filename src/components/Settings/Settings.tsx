@@ -1,53 +1,94 @@
 import { useState } from "react";
 import ("./Settings.css");
-import settings from 'electron-settings';
+import { v4 as uuidv4 } from 'uuid';
 
 const Settings = () => {
 
     const [showSettings, setShowSettings] = useState(false);
 
     let settingsList = [
-        "Simulated Robot",
         "Team Number"
     ]
+
+    interface SettingsOptionProps {
+        id: string,
+        setting: string,
+    }
+
+    const SettingsOption = (props: SettingsOptionProps) => {
+        const { id, setting } = props;
+
+        const [settingActive, setSettingActive] = useState(false);
+
+        const handleSettingEdit = () => {
+            if (settingActive) {
+                let value = (document.getElementById(id) as HTMLInputElement).value;
+                localStorage.setItem(setting, value);
+                setSettingActive(false);
+                window.location.reload();
+            } else {
+                setSettingActive(true);
+            }
+        };
+
+        return (
+            <div className="setting-card">
+                <div className="setting-name">
+                    <div className="settings-text">
+                        {setting}:
+                    </div>  
+                </div>
+                <div className="setting-current">
+                    <div className="settings-text">
+                        <input 
+                            type="text"
+                            id={id}
+                            disabled={!settingActive} 
+                            defaultValue={localStorage.getItem(setting) as string}
+                            className="settings-input"/>
+                    </div>
+                </div>
+                <div className="change-button" onClick={() => handleSettingEdit()}>
+                    <div className="settings-text">
+                        {settingActive ? "Apply" : "Edit"}
+                    </div>
+                </div>
+            </div>
+        );
+    };
 
     const settingsListUI = () => {
         let list = [];
         for (let i = 0; i < settingsList.length; i++) {
             let setting = settingsList[i];
             list.push(
-                <div className="setting-card" key={i}>
-                    <div className="setting-name">
-                        <div className="settings-text">
-                            {setting}:
-                        </div>  
-                    </div>
-                    <div className="setting-current">
-                        <div className="settings-text">
-                            {/* TODO: GET ELECTRON SETTING HERE*/}
-                        </div>
-                    </div>  
-                    <div className="change-button" onClick={() => handleSettingEdit(setting)}>
-                        <div className="settings-text">
-                            Edit
-                        </div>
-                    </div>
+                <div key={i}>
+                    <SettingsOption id={uuidv4()} setting={setting}/>
                 </div>
             );
         }
         return list;
     }
 
-    const handleSettingEdit = (setting: string) => {
-        let newValue = prompt(`Type new ${setting}:`);
-        if (newValue !== null) {
-            // TODO: SET ELECTRON SETTING HERE
-        }
+    function flipSimulatedRobot() {
+        localStorage.setItem(
+            "Simulated Robot", 
+            localStorage.getItem("Simulated Robot") === "true" 
+                ? "false" 
+                : "true");
+        window.location.reload();
     }
 
     function settingsWindow(): JSX.Element {
         return (
             <div className="settings-window" hidden={!showSettings}>
+                <div 
+                    className="change-button-2" 
+                    onClick={() => flipSimulatedRobot()}>
+                    <div className="settings-text">
+                        Connect to {localStorage.getItem("Simulated Robot") === "true" ? "Robot" : "Simulation"}
+                    </div>
+                </div>
                 {settingsListUI()}
             </div>
         )

@@ -5,9 +5,13 @@ import { v4 as uuidv4 } from 'uuid';
 import "./App.css";
 
 function App() {
+    const sim: boolean = localStorage.getItem("Simulated Robot") === "true" ? true : false;
+    const team: string = (localStorage.getItem("Team Number") as string).length === 4 ? (localStorage.getItem("Team Number") as string) : "4738";
+    const uri: string = sim ? "localhost" : `10.${team.substring(0, 2)}.${team.substring(2, 4)}.2`;
+    console.log(uri);
 
     return (    
-        <NTProvider uri={"localhost"}>
+        <NTProvider uri={uri}>
             <div className="grid-container">
                 <div className="grid-item">
                     <NTNumber NTKey={"/AdvantageKit/SubsystemInputs/Climb/RightPositionMeters"} id={uuidv4()} readOnly={true}/>
