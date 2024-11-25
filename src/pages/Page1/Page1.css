@@ -1,0 +1,100 @@
+.gain-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 800px;
+    height: 500px;
+    background-color: #202020;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.gain-header {
+    background-color: #282828;
+    flex-basis: 30%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.gain-grid {
+    flex-basis: 70%;
+    width: 100%;
+    background-color: #282828;
+    margin-top: 25px;
+    border-radius: 25px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.grid-item {
+    border: none;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gain-side {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-basis: 30%;
+    height: 100%;
+}
+
+.gain-title {
+    background-color: #353535;
+    flex-basis: 70%;
+    height: 100%;
+    border-radius: 25px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.title-text {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 40px;
+}
+
+.gain-select {
+    flex-basis: 50%;
+    width: 100%;
+    background-color: #353535;
+    border-radius: 25px;
+    border: none;
+    color: white;
+    outline: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+.gain-copy {
+    flex-basis: 50%;
+    width: 100%;
+    background-color: #353535;
+    margin-bottom: 10px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.25s;
+}
+
+.copy-text {
+    text-align: center;
+    margin: 0 auto;
+    font-size: 20px;
+    user-select: none;
+}
+
+.gain-copy:hover {
+    cursor: pointer;
+    background-color: #303030;
+}

@@ -10,7 +10,7 @@ interface NTNumberProps {
     readOnly: boolean
 }
 
-const NTNumber = (props: NTNumberProps) => {
+const NTNumber: React.FC<NTNumberProps> = (props: NTNumberProps) => {
     const { NTKey, id, readOnly } = props;
 
     const [NTValue, setNTValue] = useNTState<number>(

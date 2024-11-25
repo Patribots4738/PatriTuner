@@ -2,7 +2,7 @@ import { useState } from "react";
 import ("./Settings.css");
 import { v4 as uuidv4 } from 'uuid';
 
-const Settings = () => {
+const Settings: React.FC = () => {
 
     const [showSettings, setShowSettings] = useState(false);
 
@@ -15,7 +15,7 @@ const Settings = () => {
         setting: string,
     }
 
-    const SettingsOption = (props: SettingsOptionProps) => {
+    const SettingsOption: React.FC<SettingsOptionProps> = (props: SettingsOptionProps) => {
         const { id, setting } = props;
 
         const [settingActive, setSettingActive] = useState(false);

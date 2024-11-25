@@ -1,40 +1,46 @@
 import NTProvider from "./lib/ntcore-react/NTProvider.tsx";
-import NTNumber from "./components/NTNumber/NTNumber.tsx";
 import Settings from "./components/Settings/Settings.tsx";
-import { v4 as uuidv4 } from 'uuid';
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar/Navbar.tsx";
+import Page1 from "./pages/Page1/Page1.tsx";
+import Page2 from "./pages/Page2/Page2.tsx";
+import Page3 from "./pages/Page3/Page3.tsx";
 
-function App() {
+const App: React.FC = () => {
+
+    let settingsList = [
+        "Team Number"
+    ]
+
+    for (let i = 0; i < settingsList.length; i++) {
+        let setting: string = settingsList[i];
+        if (localStorage.getItem(setting) === null) {
+            localStorage.setItem(setting, "");
+            console.log("Setting " + setting)
+        }
+    }
+
     const sim: boolean = localStorage.getItem("Simulated Robot") === "true" ? true : false;
-    const team: string = (localStorage.getItem("Team Number") as string).length === 4 ? (localStorage.getItem("Team Number") as string) : "4738";
+    const team: string = (localStorage.getItem("Team Number") as string).length === 4 ? (localStorage.getItem("Team Number") as string) : "0000";
     const uri: string = sim ? "localhost" : `10.${team.substring(0, 2)}.${team.substring(2, 4)}.2`;
     console.log(uri);
 
     return (    
         <NTProvider uri={uri}>
-            <div className="grid-container">
-                <div className="grid-item">
-                    <NTNumber NTKey={"/AdvantageKit/SubsystemInputs/Climb/RightPositionMeters"} id={uuidv4()} readOnly={true}/>
+            <Router>
+                <Navbar/>
+                <div className="page-container">
+                    <Routes>
+                        <Route path="/" element={<Page1/>} />
+                        <Route path="/Page2" element={<Page2/>} />
+                        <Route path="/Page3" element={<Page3/>} />
+                    </Routes>
                 </div>
-                <div className="grid-item">
-                    <NTNumber NTKey={"/Calibration/Climb/0-P"} id={uuidv4()} readOnly={false}/>
-                </div>
-                <div className="grid-item">
-                    <NTNumber NTKey={"/Calibration/Climb/1-I"} id={uuidv4()} readOnly={false}/>
-                </div>
-                <div className="grid-item">
-                    <NTNumber NTKey={"/Calibration/Climb/2-D"} id={uuidv4()} readOnly={false}/>
-                </div>
-                <div className="grid-item">
-                    <NTNumber NTKey={"/Calibration/Climb/3-FF"} id={uuidv4()} readOnly={false}/>
-                </div>
-                <div className="grid-item">
-                    <NTNumber NTKey={"/Calibration/Climb/4-IZone"} id={uuidv4()} readOnly={false}/>
-                </div>
-            </div>
-            <Settings/>
-        </NTProvider>
-    );
+                <Settings/>
+            </Router>
+        </NTProvider>   
+    );  
 }
 
 export default App;
