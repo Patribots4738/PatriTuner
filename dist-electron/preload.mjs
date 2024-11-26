@@ -20,3 +20,7 @@ electron.contextBridge.exposeInMainWorld("ipcRenderer", {
   // You can expose other APTs you need here.
   // ...
 });
+electron.contextBridge.exposeInMainWorld("electronClipboard", {
+  writeText: (text) => electron.clipboard.writeText(text),
+  readText: () => electron.clipboard.readText()
+});
